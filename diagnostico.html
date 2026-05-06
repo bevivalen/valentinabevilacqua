@@ -445,6 +445,35 @@
       min-height: 18px;
     }
 
+    .area-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .area-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--warm);
+      color: var(--warm);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .area-text {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .area-text strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 4rem;
@@ -558,6 +587,11 @@
     <div class="res-block">
       <div class="res-block-title">Lo que probablemente estás viviendo</div>
       <ul class="signals" id="res-signals"></ul>
+    </div>
+    <div class="divider"></div>
+    <div class="res-block" id="areas-block">
+      <div class="res-block-title">Donde más se nota</div>
+      <div id="res-areas"></div>
     </div>
     <div class="divider"></div>
     <div class="res-block">
@@ -782,6 +816,36 @@ async function showResult() {
   }
   document.getElementById("res-intro").innerHTML=intro.split("\n\n").map(p=>"<p>"+p+"</p>").join("");
   document.getElementById("res-signals").innerHTML=r.signals.map(s=>"<li>"+s+"</li>").join("");
+
+  // Diagnóstico por áreas - identificar las más críticas
+  const AREAS = [
+    { id:"autonomia",   label:"Autonomía",            text:"Tu equipo no resuelve sin ti. Cada duda, cada decisión menor acaba llegando a tu mesa. Eso no es un problema de personas: es una señal de que no hay un sistema claro de quién decide qué." },
+    { id:"desconexion", label:"Desconexión",           text:"No puedes desconectarte sin que algo se rompa o se paralice. Eso significa que el equipo no tiene la información ni la autoridad para funcionar de forma autónoma." },
+    { id:"doc",         label:"Conocimiento",          text:"El conocimiento clave vive en tu cabeza. Cuando eso pasa, cada proceso depende de que tú estés disponible, y cualquier crecimiento del equipo empieza desde cero." },
+    { id:"onboarding",  label:"Incorporación",         text:"Contratar gente no alivia tu carga porque el onboarding depende de ti o no existe. Cada persona nueva es más tiempo tuyo antes de poder aportar." },
+    { id:"decisiones",  label:"Toma de decisiones",    text:"Demasiadas decisiones pasan por ti, incluyendo las que no deberían. Eso crea un cuello de botella constante y ralentiza al equipo entero." },
+    { id:"socios",      label:"Reparto de carga",      text:"La carga entre socios está desequilibrada y genera tensión. Eso afecta a la claridad de liderazgo y al equipo, aunque no siempre de forma visible." },
+    { id:"liderazgo",   label:"Liderazgo",             text:"No hay una capa de liderazgo real entre tú y el equipo. Todo llega directamente a ti, lo que hace imposible escalar sin que tu carga crezca al mismo ritmo." },
+    { id:"tiempo",      label:"Uso del tiempo",        text:"Tu tiempo se va en operativa y urgencias. Eso significa que el negocio avanza solo cuando tú empujas, y que la estrategia queda siempre para después." }
+  ];
+
+  // Mapear scores a áreas (preguntas 0-7 corresponden a las 8 primeras preguntas de diagnóstico)
+  const diagScores = scores.slice(0, 8);
+  const areaScores = AREAS.map((a, i) => ({ ...a, score: diagScores[i] || 0 }));
+  const topAreas = areaScores
+    .filter(a => a.score >= 2)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+
+  const areasEl = document.getElementById("res-areas");
+  if (topAreas.length === 0) {
+    document.getElementById("areas-block").style.display = "none";
+    document.querySelectorAll(".divider")[1].style.display = "none";
+  } else {
+    areasEl.innerHTML = topAreas.map(a =>
+      "<div class='area-item'><span class='area-tag'>"+a.label+"</span><span class='area-text'>"+a.text+"</span></div>"
+    ).join("");
+  }
   document.getElementById("res-steps").innerHTML=r.steps.map((s,i)=>
     "<div class='step'><span class='step-num'>"+(i+1)+"</span><span class='step-text'>"+s+"</span></div>"
   ).join("");
