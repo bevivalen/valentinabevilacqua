@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico gratuito · Valentina Bevilacqua</title>
+  <meta name="description" content="¿Eres el cuello de botella de tu propio negocio? 10 preguntas para founders digitales con equipos de 3 a 20 personas." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1714;
+      --paper: #f5f1eb;
+      --warm: #c8a96e;
+      --warm-light: #e8d9bf;
+      --muted: #7a7269;
+      --border: #d9d0c4;
+      --white: #fdfaf6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.5;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--ink); }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 8rem 2rem 5rem;
+    }
+
+    /* SCREENS */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .headline em { font-style: italic; }
+
+    .subline {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2rem;
+    }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+      color: var(--muted);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .form-group input {
+      height: 46px;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      padding: 0 16px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus { border-color: var(--warm); }
+    .form-group input.err { border-color: #c0392b; }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+    .checkbox-row input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      accent-color: var(--warm);
+      cursor: pointer;
+    }
+    .checkbox-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .checkbox-label a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .checkbox-row.err .checkbox-label { color: #c0392b; }
+
+    .btn-main {
+      width: 100%;
+      padding: 15px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.04em;
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-main:hover { opacity: 0.85; }
+
+    .privacy-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 2rem 0;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { color: var(--ink); }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .progress-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .progress-track {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--warm);
+      transition: width 0.4s ease;
+    }
+
+    .q-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      line-height: 1.35;
+      color: var(--ink);
+      margin-bottom: 1.75rem;
+    }
+
+    .opts { display: flex; flex-direction: column; gap: 8px; }
+    .opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      font-size: 0.875rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--muted);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 13px 16px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .opt:hover { border-color: var(--warm); color: var(--ink); }
+    .opt.sel { border-color: var(--ink); color: var(--ink); font-weight: 400; }
+
+    .exit-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--warm-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 20px;
+    }
+
+    .exit-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .exit-body {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      margin-bottom: 10px;
+    }
+    .btn-wa:hover { opacity: 0.9; }
+    .btn-wa svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .btn-ghost {
+      background: none; border: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+    .btn-ghost:hover { color: var(--ink); }
+
+    .res-label {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .res-label.green { background: #eaf3de; color: #3a6b10; }
+    .res-label.amber { background: #faeeda; color: #854f0b; }
+    .res-label.red { background: #fcebeb; color: #a32d2d; }
+
+    .res-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .res-intro {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.75rem;
+    }
+    .res-intro p { margin-bottom: 0.85rem; }
+
+    .res-block { margin-bottom: 1.5rem; }
+    .res-block-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .signals { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .signals li {
+      font-size: 0.875rem;
+      color: var(--ink);
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+    .signals li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--warm);
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 12px; }
+    .step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      min-width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--warm-light);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      margin-top: 1px; flex-shrink: 0;
+    }
+    .step-text { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    .meter-wrap { margin-bottom: 1.75rem; }
+    .meter-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .meter-track {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .meter-fill { height: 100%; transition: width 0.9s ease; }
+    .mf-green { background: #639922; }
+    .mf-amber { background: #BA7517; }
+    .mf-red { background: #c0392b; }
+
+    .cta-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .cta-box p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+
+    .status-msg {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 8px;
+      min-height: 18px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1.25rem 1.5rem; }
+      main { padding: 7rem 1.25rem 4rem; }
+      .headline { font-size: 1.9rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Valentina Bevilacqua</a>
+  <a href="/" class="nav-back">← Volver a la web</a>
+</nav>
+
+<main>
+
+  <!-- BIENVENIDA -->
+  <div id="s-welcome" class="screen active">
+    <div class="eyebrow">Diagnóstico gratuito</div>
+    <h1 class="headline">¿Eres el cuello de botella de <em>tu propio negocio?</em></h1>
+    <p class="subline">Cuando la carga de trabajo no baja aunque contrates, algo no está funcionando. ¿Y si el problema no es tu equipo, sino cómo está construido el sistema alrededor de ti? Descúbrelo con este diagnóstico.</p>
+    <div class="tag-row">
+      <span class="tag">Founders y C-levels</span>
+      <span class="tag">Equipos de 3-20 personas</span>
+      <span class="tag">10 preguntas</span>
+    </div>
+    <div class="form-group">
+      <input type="text" id="inp-name" placeholder="Tu nombre" autocomplete="given-name" />
+      <input type="email" id="inp-email" placeholder="Tu email" autocomplete="email" />
+    </div>
+    <div class="checkbox-row" id="privacy-row">
+      <input type="checkbox" id="inp-privacy" />
+      <label class="checkbox-label" for="inp-privacy">
+        He leído y acepto la <a href="/politica-de-privacidad.html" target="_blank">política de privacidad</a>. Mis datos se usarán únicamente para contacto relacionado con valentinabevilacqua.com.
+      </label>
+    </div>
+    <button class="btn-main" onclick="startDiag()">Empezar el diagnóstico</button>
+    <p class="privacy-note">Sin spam. Sin cesión de datos a terceros.</p>
+  </div>
+
+  <!-- CONTEXTO -->
+  <div id="s-ctx" class="screen">
+    <button class="back-link" onclick="goBackCtx()">← Volver</button>
+    <div class="q-text" id="ctx-text"></div>
+    <div class="opts" id="ctx-opts"></div>
+  </div>
+
+  <!-- SALIDA A: menos de 3 personas -->
+  <div id="s-exit-a" class="screen">
+    <div class="exit-icon">👋</div>
+    <div class="exit-headline">Este diagnóstico no es para ti todavía.</div>
+    <div class="exit-body">Lo que describes suena más a sobrecarga que a un problema de estructura de equipo. Cuando el negocio recae en una o dos personas, el problema no es la delegación, es entender qué frena la siguiente contratación.<br><br>Eso también tiene solución, pero necesita una conversación diferente. La primera llamada es gratuita y sin ningún compromiso.</div>
+    <a class="btn-wa" id="wa-exit-a" href="#" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Primera llamada gratuita - Sin compromiso
+    </a>
+    <button class="btn-ghost" onclick="restart()">Volver al inicio</button>
+  </div>
+
+  <!-- SALIDA B: más de 20 personas -->
+  <div id="s-exit-b" class="screen">
+    <div class="exit-icon">📋</div>
+    <div class="exit-headline">Tu empresa necesita un diagnóstico a medida.</div>
+    <div class="exit-body">Con más de 20 personas, las dinámicas son demasiado complejas para capturarlas en un cuestionario. La estructura, los mandos intermedios, los flujos entre áreas... todo eso necesita un análisis real, no un formulario.<br><br>La primera llamada de diagnóstico es completamente gratuita y sin compromiso. Sin pitch, sin propuesta. Solo una conversación para entender lo que está pasando.</div>
+    <a class="btn-wa" id="wa-exit-b" href="#" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Reservar la llamada gratuita
+    </a>
+    <button class="btn-ghost" onclick="restart()">Volver al inicio</button>
+  </div>
+
+  <!-- PREGUNTAS -->
+  <div id="s-question" class="screen">
+    <button class="back-link" onclick="goBack()">← Volver</button>
+    <div class="progress-row">
+      <span class="progress-num" id="q-num">1 / 10</span>
+      <span class="progress-num" id="q-pct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="opts" id="q-opts"></div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="s-result" class="screen">
+    <div class="eyebrow">Tu resultado</div>
+    <div class="res-label" id="res-label"></div>
+    <div class="meter-wrap">
+      <div class="meter-label" id="meter-lbl"></div>
+      <div class="meter-track"><div class="meter-fill" id="meter-fill" style="width:0%"></div></div>
+    </div>
+    <div class="res-headline" id="res-headline"></div>
+    <div class="res-intro" id="res-intro"></div>
+    <div class="res-block">
+      <div class="res-block-title">Lo que probablemente estás viviendo</div>
+      <ul class="signals" id="res-signals"></ul>
+    </div>
+    <div class="divider"></div>
+    <div class="res-block">
+      <div class="res-block-title">Lo que suele pasar en este punto</div>
+      <div class="steps" id="res-steps"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="cta-box">
+      <p id="cta-text"></p>
+      <a class="btn-wa" id="wa-result" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Primera llamada gratuita - Sin compromiso
+      </a>
+      <div class="status-msg" id="status-msg"></div>
+    </div>
+    <button class="btn-ghost" onclick="restart()">Repetir el diagnóstico</button>
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2026 Valentina Bevilacqua</span>
+  <span><a href="/politica-de-privacidad.html">Política de privacidad</a></span>
+</footer>
+
+<script>
+const WA = "34657706472";
+const DRIVE_WEBHOOK = ""; // Dejar vacío por ahora, se rellena cuando configuremos Google Drive
+
+const CTX = [
+  { id: "rol", text: "¿Cómo describirías tu posición en la empresa?", opts: [
+    { label: "Soy founder y trabajo activamente en mi empresa", val: "founder" },
+    { label: "Soy C-level (CEO, COO, CMO, etc.) pero no founder", val: "clevel" },
+    { label: "Otro", val: "otro" }
+  ]},
+  { id: "size", text: "¿Cuántas personas trabajan en tu empresa, incluyéndote a ti?", opts: [
+    { label: "Solo yo, o yo y otra persona", val: "micro", exit: "a" },
+    { label: "Entre 3 y 20 personas", val: "mid" },
+    { label: "Más de 20 personas", val: "large", exit: "b" }
+  ]}
+];
+
+const QS = [
+  { id: "autonomia", text: "Cuando alguien tiene una duda o se bloquea, ¿qué pasa normalmente?", opts: [
+    { label: "La resuelven solos o entre ellos", s: 0 },
+    { label: "Me consultan solo después de haber intentado resolverla", s: 1 },
+    { label: "Me preguntan casi todo, incluso cosas obvias", s: 2 },
+    { label: "Sin mi OK no se mueven, sea lo que sea", s: 3 }
+  ]},
+  { id: "desconexion", text: "¿Puedes irte una semana sin estar disponible?", opts: [
+    { label: "Sí, el equipo funciona sin mí", s: 0 },
+    { label: "Puedo, aunque me escriben alguna vez", s: 1 },
+    { label: "Lo intento, pero acabo conectándome", s: 2 },
+    { label: "Es impensable. Todo se pararía", s: 3 }
+  ]},
+  { id: "doc", text: "¿Dónde vive el conocimiento clave de tu empresa?", opts: [
+    { label: "En documentos accesibles que el equipo conoce y usa", s: 0 },
+    { label: "Hay algo documentado, pero no está al día", s: 1 },
+    { label: "En mi cabeza y en la de los empleados clave", s: 2 },
+    { label: "En mi cabeza principalmente", s: 3 }
+  ]},
+  { id: "onboarding", text: "Piensa en las últimas 2-3 veces que has contratado a alguien que se ha quedado más de 3 meses. ¿Qué ha ocurrido?", opts: [
+    { label: "Después del onboarding, la persona trabaja autónomamente (es raro que me contacte)", s: 0 },
+    { label: "Después del onboarding, la persona sigue dependiendo de mí", s: 2 },
+    { label: "No tengo tiempo para el onboarding, la persona va aprendiendo sobre la marcha", s: 3 }
+  ]},
+  { id: "decisiones", text: "Piensa en las tareas operativas y en la toma de decisión. ¿Cuántas decisiones tomas tú en tu empresa?", opts: [
+    { label: "Menos del 20%, mi equipo tiene mucha autonomía", s: 0 },
+    { label: "Entre el 20% y el 50%, decisiones puntuales y las importantes", s: 1 },
+    { label: "Entre el 50% y el 80%, se cuelan decisiones menores y también las importantes", s: 2 },
+    { label: "Entre el 80% y el 100%, casi todo pasa por mí", s: 3 }
+  ]},
+  { id: "socios", text: "Si tienes socios o co-founders activos, ¿cómo está repartida la carga?", opts: [
+    { label: "No tengo socios, soy el único founder", s: 0 },
+    { label: "La carga está bien repartida entre nosotros", s: 0 },
+    { label: "Uno carga con más peso, pero está pactado y funciona", s: 1 },
+    { label: "La carga está mal repartida y genera tensión", s: 3 }
+  ]},
+  { id: "liderazgo", text: "¿Quién lidera al equipo en el día a día?", opts: [
+    { label: "Tengo personas que lideran a otras con autonomía real", s: 0 },
+    { label: "Hay alguien que coordina, pero con límites claros de actuación", s: 1 },
+    { label: "Informalmente alguien tira del carro, pero el referente soy yo", s: 2 },
+    { label: "Yo llevo directamente a todas las personas del equipo", s: 3 }
+  ]},
+  { id: "tiempo", text: "¿Cómo está repartido tu tiempo durante la semana?", opts: [
+    { label: "Principalmente en estrategia y en cómo hacer crecer el negocio", s: 0 },
+    { label: "50% estrategia, 50% operativa", s: 1 },
+    { label: "Principalmente en operativa y en resolver urgencias", s: 3 }
+  ]},
+  { id: "intentos", text: "¿Has intentado ya cambiar esta situación?", opts: [
+    { label: "No he tomado medidas todavía", s: 0 },
+    { label: "He intentado delegar pero no ha funcionado como esperaba", s: 0 },
+    { label: "He reorganizado el equipo sin resultados claros", s: 0 },
+    { label: "He contratado más gente y el problema persiste", s: 0 }
+  ]},
+  { id: "mentalidad", text: "¿Cómo sería tu equipo ideal?", opts: [
+    { label: "Un equipo que funcione solo y que me deje trabajar en lo que quiero", s: 0 },
+    { label: "Un equipo atento a lo que digo, que aprenda rápido y que me reporte de forma continuada", s: 1 },
+    { label: "Un equipo vertical: un jefe de equipo por departamento que me reporta directamente", s: 1 },
+    { label: "Un equipo que ejecute bien lo que se define. He aprendido que sin seguimiento las cosas no salen", s: 2 }
+  ]}
+];
+
+const RESULTS = [
+  {
+    range:[0,7], cls:"green", fillCls:"mf-green", label:"Equipo autónomo",
+    headline:"Tu equipo funciona. Si hay un freno, no está en la estructura.",
+    intro:"Tienes algo que la mayoría de founders con tu tamaño no tiene: un equipo que puede moverse sin ti. Eso no pasa solo. Es el resultado de decisiones conscientes sobre cómo se organiza la información, quién decide qué, y cómo se incorpora a las personas.\n\nSi sientes que algo no acaba de fluir, casi nunca es la estructura lo que falla en esta fase. Suele ser la escala: mantener la cultura cuando el equipo crece, o preparar el siguiente nivel de liderazgo antes de necesitarlo.",
+    signals:["El equipo resuelve la mayoría de situaciones sin tu intervención","Puedes desconectarte sin que todo se detenga","Tienes espacio para pensar en el negocio, no solo en el día a día","Las personas que contratas acaban siendo autónomas"],
+    steps:["El riesgo en esta fase no es que todo pase por ti, sino que la autonomía que tienes dependa de las personas, no del sistema.","Cuando alguien clave se va, ¿el equipo sigue funcionando igual? Si la respuesta es no, ahí está el siguiente trabajo.","Este es el momento de preparar el crecimiento antes de que el crecimiento lo rompa todo."],
+    ctaTxt:"Si llegaste hasta aquí y te has visto reflejado, merece la pena hablarlo. La primera llamada es gratuita y sin compromiso: me cuentas cómo vas y yo te doy mi feedback sincero. Si luego tiene sentido trabajar juntos, te explico cómo lo hago. Si no, te llevas una conversación que quizás te resulte útil.",
+    waMsg:"Hola Valentina, acabo de hacer el diagnóstico y me ha salido 'Equipo autónomo'. Me gustaría explorar si lo que tengo es sostenible o si hay algo que reforzar. ¿Podemos hablar?"
+  },
+  {
+    range:[8,16], cls:"amber", fillCls:"mf-amber", label:"Cuello de botella en formación",
+    headline:"Funcionas. Pero el negocio depende más de ti de lo que debería.",
+    intro:"Tienes un equipo, pero el flujo de trabajo pasa demasiado por ti. No porque la gente sea mala, sino porque el sistema no está diseñado para que funcionen sin ti. Y eso tiene un coste que quizás no estás calculando: el tiempo que dedicas a resolver cosas que otros deberían resolver es tiempo que no estás dedicando a lo que realmente mueve el negocio.\n\nEn este punto, contratar más no suele ser la solución. El problema casi nunca es el número de personas. Es cómo está organizada la información, quién tiene autoridad para decidir qué, y si hay alguien que lidere sin necesitar tu validación constante.",
+    signals:["Tu equipo te consulta cosas que debería resolver solo","Te cuesta desconectarte más de un par de días","Has contratado y sigues haciendo las mismas cosas","El onboarding de nuevas personas recae en ti"],
+    steps:["El problema no está en las personas. Está en que el sistema no está diseñado para que funcionen sin ti.","Reorganizar antes de contratar suele ser más efectivo y mucho más barato.","Hay un camino claro desde aquí. Pero el primer paso es entender exactamente dónde están los cuellos de botella reales, que casi nunca son los que parecen."],
+    ctaTxt:"Si llegaste hasta aquí y te has visto reflejado, merece la pena hablarlo. La primera llamada es gratuita y sin compromiso: me cuentas cómo vas y yo te doy mi feedback sincero. Si luego tiene sentido trabajar juntos, te explico cómo lo hago. Si no, te llevas una conversación que quizás te resulte útil.",
+    waMsg:"Hola Valentina, hice el diagnóstico y me ha salido 'Cuello de botella en formación'. Me reconozco bastante en los resultados. Me gustaría tener esa primera llamada gratuita."
+  },
+  {
+    range:[17,24], cls:"red", fillCls:"mf-red", label:"Cuello de botella crítico",
+    headline:"El negocio gira alrededor de ti. Y eso tiene un coste que quizás no estás viendo.",
+    intro:"No es un problema de motivación. Ni de talento en tu equipo. Es un problema estructural: la empresa no está construida para funcionar sin ti porque, en algún momento, nunca se diseñó para eso. Todo el conocimiento, todas las decisiones, todo el liderazgo pasan por una persona. Y eso funciona hasta cierto punto.\n\nEl coste visible es que no puedes desconectarte, que el equipo no avanza sin tu OK, que contratar más gente no baja tu carga. El coste invisible es lo que no estás haciendo: pensar en el negocio, crecer, o simplemente recuperar la razón por la que empezaste.",
+    signals:["Nada avanza sin tu aprobación, aunque sea algo pequeño","Llevas tiempo sin poder pensar en estrategia","Contratar más gente no ha aliviado tu carga","Si te fueras una semana, algo se pararía o se rompería"],
+    steps:["El problema no está en las personas. Está en que el sistema no está construido para que funcionen sin ti, y eso no se resuelve contratando más.","La solución casi nunca es la que el founder cree que es. Por eso el primer paso es siempre el diagnóstico: entender qué está pasando de verdad antes de proponer nada.","Este tipo de situación tiene solución. Y los cambios, cuando se hacen bien, se empiezan a notar antes de lo que se espera."],
+    ctaTxt:"Si llegaste hasta aquí y te has visto reflejado, merece la pena hablarlo. La primera llamada es gratuita y sin compromiso: me cuentas cómo vas y yo te doy mi feedback sincero. Si luego tiene sentido trabajar juntos, te explico cómo lo hago. Si no, te llevas una conversación que quizás te resulte útil.",
+    waMsg:"Hola Valentina, hice el diagnóstico y me ha salido 'Cuello de botella crítico'. Me ha retratado bastante bien. Me gustaría tener esa primera llamada gratuita para entender qué pasos tienen sentido."
+  }
+];
+
+let userName="", userEmail="", ctxStep=0, ctxData={}, curQ=0, scores=[], intentoVal="";
+
+function startDiag() {
+  const n=document.getElementById("inp-name");
+  const e=document.getElementById("inp-email");
+  const p=document.getElementById("inp-privacy");
+  const pr=document.getElementById("privacy-row");
+  n.classList.remove("err"); e.classList.remove("err"); pr.classList.remove("err");
+  if (!n.value.trim()) { n.classList.add("err"); n.focus(); return; }
+  if (!e.value.trim()||!e.value.includes("@")) { e.classList.add("err"); e.focus(); return; }
+  if (!p.checked) { pr.classList.add("err"); return; }
+  userName=n.value.trim(); userEmail=e.value.trim();
+  ctxStep=0; ctxData={};
+  show("s-ctx"); renderCtx();
+}
+
+function renderCtx() {
+  const q=CTX[ctxStep];
+  document.getElementById("ctx-text").textContent=q.text;
+  const el=document.getElementById("ctx-opts"); el.innerHTML="";
+  q.opts.forEach(o=>{
+    const b=document.createElement("button");
+    b.className="opt"; b.textContent=o.label;
+    b.onclick=()=>pickCtx(o); el.appendChild(b);
+  });
+}
+
+function pickCtx(o) {
+  ctxData[CTX[ctxStep].id]=o.val;
+  if (o.exit==="a") {
+    document.getElementById("wa-exit-a").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Hola Valentina, hice el diagnóstico y todavía no tengo equipo. Me gustaría entender cuál es mi siguiente paso. ¿Podemos hablar?");
+    show("s-exit-a"); return;
+  }
+  if (o.exit==="b") {
+    document.getElementById("wa-exit-b").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Hola Valentina, hice el diagnóstico y tengo más de 20 personas en el equipo. Me gustaría reservar la primera llamada gratuita.");
+    show("s-exit-b"); return;
+  }
+  ctxStep++;
+  if (ctxStep>=CTX.length) { curQ=0; scores=[]; intentoVal=""; show("s-question"); renderQ(); }
+  else renderCtx();
+}
+
+function goBackCtx() {
+  if (ctxStep===0) show("s-welcome"); else { ctxStep--; renderCtx(); }
+}
+
+function renderQ() {
+  const q=QS[curQ], total=QS.length;
+  const pct=Math.round((curQ/total)*100);
+  document.getElementById("q-num").textContent=(curQ+1)+" / "+total;
+  document.getElementById("q-pct").textContent=pct+"%";
+  document.getElementById("prog").style.width=pct+"%";
+  document.getElementById("q-text").textContent=q.text;
+  const el=document.getElementById("q-opts"); el.innerHTML="";
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement("button");
+    b.className="opt"; b.textContent=o.label;
+    b.onclick=()=>pickQ(i,o,q); el.appendChild(b);
+  });
+}
+
+function pickQ(i,o,q) {
+  document.querySelectorAll("#q-opts .opt").forEach(b=>b.classList.remove("sel"));
+  document.querySelectorAll("#q-opts .opt")[i].classList.add("sel");
+  if (q.id==="intentos") intentoVal=o.label;
+  setTimeout(()=>{ scores.push(o.s); curQ++; if(curQ>=QS.length) showResult(); else renderQ(); },260);
+}
+
+function goBack() {
+  if (curQ===0) { show("s-ctx"); ctxStep=CTX.length-1; renderCtx(); }
+  else { curQ--; scores.pop(); renderQ(); }
+}
+
+async function showResult() {
+  const total=scores.reduce((a,b)=>a+b,0);
+  const pct=Math.round((total/24)*100);
+  const r=RESULTS.find(x=>total>=x.range[0]&&total<=x.range[1])||RESULTS[2];
+
+  document.getElementById("res-label").textContent=r.label;
+  document.getElementById("res-label").className="res-label "+r.cls;
+  document.getElementById("meter-lbl").textContent="Nivel de dependencia: "+pct+"%";
+  const fill=document.getElementById("meter-fill");
+  fill.className="meter-fill "+r.fillCls;
+  document.getElementById("res-headline").textContent=r.headline;
+
+  let intro=r.intro;
+  if (intentoVal&&intentoVal!=="No he tomado medidas todavía") {
+    intro+="\n\nHas intentado cambiar esto antes y no ha funcionado como esperabas. Eso no significa que el problema no tenga solución. Casi siempre significa que se atacó desde el ángulo equivocado.";
+  }
+  document.getElementById("res-intro").innerHTML=intro.split("\n\n").map(p=>"<p>"+p+"</p>").join("");
+  document.getElementById("res-signals").innerHTML=r.signals.map(s=>"<li>"+s+"</li>").join("");
+  document.getElementById("res-steps").innerHTML=r.steps.map((s,i)=>
+    "<div class='step'><span class='step-num'>"+(i+1)+"</span><span class='step-text'>"+s+"</span></div>"
+  ).join("");
+  document.getElementById("cta-text").textContent=r.ctaTxt;
+  document.getElementById("wa-result").href="https://wa.me/"+WA+"?text="+encodeURIComponent(r.waMsg);
+
+  show("s-result");
+  setTimeout(()=>{ fill.style.width=pct+"%"; },120);
+
+  // Guardar en Google Drive vía webhook (cuando esté configurado)
+  if (DRIVE_WEBHOOK) {
+    try {
+      await fetch(DRIVE_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fecha: new Date().toISOString(),
+          nombre: userName,
+          email: userEmail,
+          rol: ctxData.rol || "",
+          tamano: ctxData.size || "",
+          resultado: r.label,
+          puntuacion: total,
+          porcentaje: pct+"%"
+        })
+      });
+    } catch(e) { /* silencioso */ }
+  }
+}
+
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function restart() {
+  ctxStep=0; ctxData={}; curQ=0; scores=[]; intentoVal="";
+  show("s-welcome");
+}
+</script>
+</body>
+</html>
