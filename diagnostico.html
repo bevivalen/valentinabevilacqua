@@ -756,10 +756,12 @@ function pickCtx(o) {
   ctxData[CTX[ctxStep].id]=o.val;
   if (o.exit==="a") {
     document.getElementById("wa-exit-a").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Hola Valentina, hice el diagnóstico y todavía no tengo equipo. Me gustaría entender cuál es mi siguiente paso. ¿Podemos hablar?");
+    saveToSheet("Solo yo o 2 personas", "Salida: menos de 3 personas");
     show("s-exit-a"); return;
   }
   if (o.exit==="b") {
     document.getElementById("wa-exit-b").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Hola Valentina, hice el diagnóstico y tengo más de 20 personas en el equipo. Me gustaría reservar la primera llamada gratuita.");
+    saveToSheet("Más de 20 personas", "Salida: más de 20 personas");
     show("s-exit-b"); return;
   }
   ctxStep++;
@@ -796,6 +798,26 @@ function pickQ(i,o,q) {
 function goBack() {
   if (curQ===0) { show("s-ctx"); ctxStep=CTX.length-1; renderCtx(); }
   else { curQ--; scores.pop(); renderQ(); }
+}
+
+function saveToSheet(tamano, resultado, puntuacion, porcentaje) {
+  if (!DRIVE_WEBHOOK) return;
+  try {
+    const params = new URLSearchParams({
+      fecha: new Date().toISOString(),
+      nombre: userName,
+      email: userEmail,
+      rol: ctxData.rol || "",
+      tamano: tamano || ctxData.size || "",
+      resultado: resultado || "",
+      puntuacion: puntuacion || "",
+      porcentaje: porcentaje || ""
+    });
+    fetch(DRIVE_WEBHOOK + "?" + params.toString(), {
+      method: "GET",
+      mode: "no-cors"
+    });
+  } catch(e) { /* silencioso */ }
 }
 
 async function showResult() {
@@ -856,24 +878,7 @@ async function showResult() {
   setTimeout(()=>{ fill.style.width=pct+"%"; },120);
 
   // Guardar en Google Sheets via GET para evitar CORS
-  if (DRIVE_WEBHOOK) {
-    try {
-      const params = new URLSearchParams({
-        fecha: new Date().toISOString(),
-        nombre: userName,
-        email: userEmail,
-        rol: ctxData.rol || "",
-        tamano: ctxData.size || "",
-        resultado: r.label,
-        puntuacion: total,
-        porcentaje: pct + "%"
-      });
-      fetch(DRIVE_WEBHOOK + "?" + params.toString(), {
-        method: "GET",
-        mode: "no-cors"
-      });
-    } catch(e) { /* silencioso */ }
-  }
+  saveToSheet(ctxData.size, r.label, total, pct + "%");
 }
 
 function show(id) {
