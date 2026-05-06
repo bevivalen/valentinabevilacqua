@@ -619,7 +619,7 @@
 
 <script>
 const WA = "34657706472";
-const DRIVE_WEBHOOK = "https://script.google.com/macros/s/AKfycbyWHcFKLmMrd0C-Rdi3MYCw5tm9Zj1rx1DCux8fQmVkuHSgPO6NgosIFKa3aAPOZFA/exec";
+const DRIVE_WEBHOOK = "https://script.google.com/macros/s/AKfycbyhWTsYVOdIMghCdex4hMzJhRp-RZOJpvhQbt0NEoBvhve-a0t3fIwPayvm4es1XSVo/exec";
 
 const CTX = [
   { id: "rol", text: "¿Cómo describirías tu posición en la empresa?", opts: [
@@ -855,22 +855,22 @@ async function showResult() {
   show("s-result");
   setTimeout(()=>{ fill.style.width=pct+"%"; },120);
 
-  // Guardar en Google Drive vía webhook (cuando esté configurado)
+  // Guardar en Google Sheets via GET para evitar CORS
   if (DRIVE_WEBHOOK) {
     try {
-      await fetch(DRIVE_WEBHOOK, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fecha: new Date().toISOString(),
-          nombre: userName,
-          email: userEmail,
-          rol: ctxData.rol || "",
-          tamano: ctxData.size || "",
-          resultado: r.label,
-          puntuacion: total,
-          porcentaje: pct+"%"
-        })
+      const params = new URLSearchParams({
+        fecha: new Date().toISOString(),
+        nombre: userName,
+        email: userEmail,
+        rol: ctxData.rol || "",
+        tamano: ctxData.size || "",
+        resultado: r.label,
+        puntuacion: total,
+        porcentaje: pct + "%"
+      });
+      fetch(DRIVE_WEBHOOK + "?" + params.toString(), {
+        method: "GET",
+        mode: "no-cors"
       });
     } catch(e) { /* silencioso */ }
   }
