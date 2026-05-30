@@ -8,14 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style>
   :root {
     --ink: #1a1714;
     --paper: #f5f1eb;
     --warm: #c8a96e;
     --warm-light: #e8d9bf;
-    --muted: #7a7269;
+    --muted: #5c564f;
     --border: #d9d0c4;
     --white: #fdfaf6;
   }
@@ -28,8 +27,8 @@
     background: var(--paper);
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
+    font-weight: 400;
+    line-height: 1.7;
     overflow-x: hidden;
   }
 
@@ -47,8 +46,8 @@
   /* TYPOGRAPHY */
   h1, h2, h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    line-height: 1.1;
+    font-weight: 400;
+    line-height: 1.15;
   }
 
   .mono {
@@ -152,11 +151,11 @@
   }
 
   .hero-subtitle {
-    font-size: 1.1rem;
-    color: var(--muted);
+    font-size: 1.15rem;
+    color: var(--ink);
     max-width: 42ch;
     margin-bottom: 3rem;
-    line-height: 1.7;
+    line-height: 1.8; opacity: 0.8;
   }
 
   .hero-actions {
@@ -280,9 +279,9 @@
   }
 
   .problem-text p {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    color: rgba(245,241,235,0.8);
+    font-size: 1.2rem;
+    line-height: 1.85;
+    color: rgba(245,241,235,0.92);
     margin-bottom: 1.5rem;
   }
 
@@ -348,9 +347,10 @@
   }
 
   .step p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    color: var(--ink);
+    font-size: 0.97rem;
+    line-height: 1.75;
+    opacity: 0.75;
   }
 
   /* SERVICES */
@@ -406,10 +406,11 @@
   }
 
   .service-card p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    color: var(--ink);
+    font-size: 0.97rem;
+    line-height: 1.75;
     margin-bottom: 1.5rem;
+    opacity: 0.75;
   }
 
   .service-includes {
@@ -496,7 +497,7 @@
 
   .about-content p {
     font-size: 1.1rem;
-    line-height: 1.85;
+    line-height: 1.9;
     color: var(--ink);
     margin-bottom: 1.5rem;
   }
@@ -546,7 +547,7 @@
 
   .contact-subtitle {
     font-size: 1.1rem;
-    color: rgba(245,241,235,0.6);
+    color: rgba(245,241,235,0.85);
     max-width: 50ch;
     margin: 0 auto 3.5rem;
     line-height: 1.7;
@@ -748,9 +749,10 @@
 
   .testimonial-quote {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+    font-weight: 500;
     font-style: italic;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--ink);
     margin-bottom: 2rem;
   }
@@ -800,7 +802,6 @@
     <li><a href="#como-funciona">Cómo funciona</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#diagnostico">Diagnóstico</a></li>
     <li><a href="#contacto" class="nav-cta">Hablemos</a></li>
   </ul>
 </nav>
@@ -808,7 +809,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <p class="mono hero-eyebrow">Consultoría operacional · Barcelona</p>
+    <p class="mono hero-eyebrow">Consultoría operacional · Cuando el negocio depende de sus fundadores</p>
     <h1 class="hero-title">
       Tu empresa crece.<br>Pero todo sigue<br><em>pasando por ti.</em>
     </h1>
@@ -816,7 +817,7 @@
       Ayudo a founders de empresas digitales a dejar de ser el cuello de botella de su propio negocio. Entro, diagnostico lo que está pasando de verdad, y trabajo con el equipo para que las cosas funcionen sin que tengas que estar en cada decisión.
     </p>
     <div class="hero-actions">
-      <a href="#contacto" class="btn-primary">Hablemos de tu caso</a>
+      <a href="https://tidycal.com/bevilacquavale/sesion-de-diagnostico-gratuita" target="_blank" class="btn-primary">Hablemos de tu caso</a>
       <a href="#como-funciona" class="btn-secondary">Cómo trabajo</a>
     </div>
   </div>
@@ -872,16 +873,6 @@
       <h3>Seguimiento hasta que funciona</h3>
       <p>A los dos meses revisamos cómo han ido los cambios y ajustamos lo que haga falta. No entrego un documento y desaparezco. El objetivo es que cuando terminamos, el equipo funcione y tú puedas volver a hacer lo que hace crecer tu negocio.</p>
     </div>
-  </div>
-</section>
-
-<!-- DIAGNOSTICO -->
-<section id="diagnostico" style="padding: 6rem 4rem; border-top: 1px solid var(--border); background: var(--paper);">
-  <div style="max-width: 640px; margin: 0 auto;">
-    <p class="mono" style="color: var(--muted); margin-bottom: 1rem;">Diagnóstico gratuito</p>
-    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1.15; margin-bottom: 1rem;">¿Eres el cuello de botella de <em>tu propio negocio?</em></h2>
-    <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem; max-width: 520px;">Cuando la carga de trabajo no baja aunque contrates, algo no está funcionando. Responde 10 preguntas y descúbrelo.</p>
-    <a href="/diagnostico.html" style="display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--paper) !important; padding: 0.9rem 2rem; text-decoration: none !important; border-radius: 2px; border: none;" onmouseover="this.style.background='var(--warm)';this.style.color='var(--ink)'" onmouseout="this.style.background='var(--ink)';this.style.color='var(--paper)'">Empezar el diagnóstico →</a>
   </div>
 </section>
 
@@ -950,8 +941,6 @@
       <ul class="about-credentials">
         <li><span>→</span> Licenciada en Economía e International Management</li>
         <li><span>→</span> Consultora independiente desde 2019</li>
-        <li><span>→</span> Co-fundadora de Moneycura</li>
-        <li><span>→</span> Mentora en Sendero Emprendedor</li>
         <li><span>→</span> Basada en Barcelona</li>
         <li><span>→</span> Español, inglés e italiano</li>
       </ul>
@@ -999,7 +988,7 @@
   <p class="mono contact-eyebrow">¿Hablamos?</p>
   <h2 class="contact-title">¿Te reconoces en algo de lo que has leído?</h2>
   <p class="contact-subtitle">Escríbeme. Me cuentas qué está pasando en tu negocio y vemos juntos si tiene sentido trabajar. Sin compromiso, sin formulario interminable.</p>
-  <a href="mailto:bevilacqua.vale@gmail.com" class="contact-email">bevilacqua.vale@gmail.com</a>
+  <a href="https://tidycal.com/bevilacquavale/sesion-de-diagnostico-gratuita" target="_blank" class="btn-primary" style="display:inline-block; margin-bottom: 3rem; font-size: 0.78rem; padding: 1.2rem 2.5rem; background: var(--warm); color: var(--ink);">Reserva una sesión de diagnóstico gratuita</a>
   <span class="contact-or">O encuéntrame en</span>
   <div class="contact-links">
     <a href="https://www.linkedin.com/in/bevilacquavalentina/" target="_blank" class="contact-link">LinkedIn</a>
@@ -1008,9 +997,8 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 Valentina Bevilacqua</span>
+  <span>© 2025 Valentina Bevilacqua</span>
   <span>valentinabevilacqua.com</span>
-  <span><a href="/politica-de-privacidad.html" style="color: var(--muted); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em;">Política de privacidad</a></span>
 </footer>
 
 <script>
